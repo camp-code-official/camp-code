@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import LoginComponent from './components/LoginComponent';
-import GameComponent from './components/GameComponent';
+import Login from './scripts/screens/Login';
+import Game from './scripts/screens/Game';
 
 const App: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -11,7 +11,7 @@ const App: React.FC = () => {
 
   return (
     <div>
-      {isLoggedIn ? <GameComponent /> : <LoginComponent onLogin={handleLogin} />}
+      {isLoggedIn ? <Game /> : <Login onLogin={handleLogin} />}
     </div>
   );
 };

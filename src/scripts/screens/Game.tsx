@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import * as Phaser from 'phaser';
 import { enable3d, Canvas } from '@enable3d/phaser-extension';
-import MainScene from '../scripts/scenes/MainScene';
-import PreloadScene from '../scripts/scenes/PreloadScene';
+import MainScene from '../scenes/MainScene';
+import PreloadScene from '../scenes/PreloadScene';
 
-const GameComponent: React.FC = () => {
+const Game: React.FC = () => {
   const gameRef = useRef<Phaser.Game | null>(null);
 
   useEffect(() => {
@@ -36,4 +36,4 @@ const GameComponent: React.FC = () => {
   return <div id="phaser-game" style={{ width: '100%', height: '100%' }} />;
 };
 
-export default GameComponent;
+export default Game;

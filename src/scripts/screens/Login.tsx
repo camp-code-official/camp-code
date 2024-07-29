@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const LoginComponent: React.FC<{ onLogin: () => void }> = ({ onLogin }) => {
+const Login: React.FC<{ onLogin: () => void }> = ({ onLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -25,4 +25,4 @@ const LoginComponent: React.FC<{ onLogin: () => void }> = ({ onLogin }) => {
   );
 };
 
-export default LoginComponent;
+export default Login;
