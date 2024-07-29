@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import LoginForm from './components/LoginForm';
+import LoginComponent from './components/LoginComponent';
 import GameComponent from './components/GameComponent';
 
 const App: React.FC = () => {
@@ -10,8 +10,8 @@ const App: React.FC = () => {
   };
 
   return (
-    <div style={{ height: '100vh' }}>
-      {isLoggedIn ? <GameComponent /> : <LoginForm onLogin={handleLogin} />}
+    <div>
+      {isLoggedIn ? <GameComponent /> : <LoginComponent onLogin={handleLogin} />}
     </div>
   );
 };
