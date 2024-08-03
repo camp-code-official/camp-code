@@ -2,3 +2,5 @@
 /dist
 /.cache
 /.vscode
+/dist
+firebase-config.js

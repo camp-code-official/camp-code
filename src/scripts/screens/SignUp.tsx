@@ -1,0 +1,77 @@
+import React, { useState } from 'react';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from './../../../firebase-config';
+
+const SignUp: React.FC<{ onSignUp: () => void }> = ({ onSignUp }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState('');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (password !== confirmPassword) {
+      setError('Passwords do not match.');
+      return;
+    }
+
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      onSignUp();
+    } catch (error) {
+      if (error instanceof Error) {
+        setError('Error creating user: ' + error.message);
+      } else {
+        setError('An unknown error occurred.');
+      }
+    }
+  };
+
+  return (
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: '#f4f4f4' }}>
+      <form onSubmit={handleSubmit} style={{ background: 'white', padding: '20px', borderRadius: '8px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)', maxWidth: '400px', width: '100%' }}>
+        <h1 style={{ marginBottom: '20px', fontSize: '24px', color: '#333' }}>Sign Up</h1>
+        <label style={{ display: 'block', marginBottom: '10px', fontWeight: 'bold', color: '#555' }}>
+          Email:
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            style={{ width: '100%', padding: '10px', margin: '5px 0 20px', border: '1px solid #ddd', borderRadius: '4px' }}
+          />
+        </label>
+        <label style={{ display: 'block', marginBottom: '10px', fontWeight: 'bold', color: '#555' }}>
+          Password:
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            style={{ width: '100%', padding: '10px', margin: '5px 0 20px', border: '1px solid #ddd', borderRadius: '4px' }}
+          />
+        </label>
+        <label style={{ display: 'block', marginBottom: '10px', fontWeight: 'bold', color: '#555' }}>
+          Confirm Password:
+          <input
+            type="password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+            style={{ width: '100%', padding: '10px', margin: '5px 0 20px', border: '1px solid #ddd', borderRadius: '4px' }}
+          />
+        </label>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+        <button
+          type="submit"
+          style={{ backgroundColor: '#007bff', color: 'white', border: 'none', padding: '10px 15px', borderRadius: '4px', cursor: 'pointer', width: '100%', fontSize: '16px' }}
+        >
+          Sign Up
+        </button>
+      </form>
+    </div>
+  );
+};
+
+export default SignUp;
