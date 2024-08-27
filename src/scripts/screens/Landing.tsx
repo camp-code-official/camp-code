@@ -1,15 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Login: React.FC<{ onLogin: () => void }> = ({ onLogin }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onLogin();
-  };
-
+const Landing: React.FC = () => {
   return (
     <div>
       <header style={{
@@ -69,24 +61,45 @@ const Login: React.FC<{ onLogin: () => void }> = ({ onLogin }) => {
         </nav>
       </header>
 
-      <main style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'calc(100vh - 80px)' }}>
-        <form onSubmit={handleSubmit} style={{ background: 'white', padding: '20px', borderRadius: '8px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)', maxWidth: '400px', width: '100%' }}>
-          <h1 style={{ marginBottom: '20px', fontSize: '24px', color: '#333' }}>Login</h1>
-          <label style={{ display: 'block', marginBottom: '10px', fontWeight: 'bold', color: '#555' }}>
-            Email:
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required style={{ width: '100%', padding: '10px', margin: '5px 0 20px', border: '1px solid #ddd', borderRadius: '4px' }} />
-          </label>
-          <label style={{ display: 'block', marginBottom: '10px', fontWeight: 'bold', color: '#555' }}>
-            Password:
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required style={{ width: '100%', padding: '10px', margin: '5px 0 20px', border: '1px solid #ddd', borderRadius: '4px' }} />
-          </label>
-          <button type="submit" style={{ backgroundColor: '#007bff', color: 'white', border: 'none', padding: '10px 15px', borderRadius: '4px', cursor: 'pointer', width: '100%', fontSize: '16px' }}>
-            Login
-          </button>
-        </form>
+      <main>
+        <section style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '50px',
+          backgroundColor: '#ffffff',
+        }}>
+          <div style={{ maxWidth: '50%' }}>
+            <h1 style={{
+              fontSize: '4em',
+              color: '#ff9800',
+              marginBottom: '20px'
+            }}>CAMP CODE</h1>
+            <p style={{
+              fontSize: '1.2em',
+              color: '#757575',
+              marginBottom: '40px'
+            }}>A fun and easy way to learn code.</p>
+            <Link to="/learn-more" style={{
+              textDecoration: 'none',
+              backgroundColor: '#ff5722',
+              color: '#fff',
+              padding: '15px 30px',
+              borderRadius: '5px',
+              fontWeight: 'bold',
+              textTransform: 'uppercase'
+            }}>Learn More</Link>
+          </div>
+          <div style={{ maxWidth: '50%' }}>
+            <img src="https://i.pinimg.com/564x/c5/3a/44/c53a44d3af7099b6bb7e7bd5bb472e41.jpg" alt="Camping Image" style={{
+              maxWidth: '100%',
+              height: 'auto'
+            }} />
+          </div>
+        </section>
       </main>
     </div>
   );
-};
+}
 
-export default Login;
+export default Landing;
