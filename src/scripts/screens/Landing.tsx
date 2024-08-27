@@ -80,7 +80,16 @@ const Landing: React.FC = () => {
               color: '#757575',
               marginBottom: '40px'
             }}>A fun and easy way to learn code.</p>
-            <Link to="/learn-more" style={{
+            <Link to="/game" style={{
+              textDecoration: 'none',
+              backgroundColor: '#ff5722',
+              color: '#fff',
+              padding: '15px 30px',
+              borderRadius: '5px',
+              fontWeight: 'bold',
+              textTransform: 'uppercase'
+            }}>Play</Link>
+            <Link to="/game" style={{
               textDecoration: 'none',
               backgroundColor: '#ff5722',
               color: '#fff',
