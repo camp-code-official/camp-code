@@ -6,6 +6,8 @@ export default class MainScene extends Scene3D {
   private controls?: ThirdPersonControls;
   private canJump: boolean = true;
   private isJumping: boolean = false;
+  private commandQueue: string[] = [];
+  private processingQueue: boolean = false;
 
   constructor() {
     super({ key: 'MainScene' });
@@ -93,44 +95,77 @@ export default class MainScene extends Scene3D {
   }
 
   setupInput() {
-    // Setup input for text commands
-    const input = document.createElement('input');
-    input.type = 'text';
-    input.placeholder = 'Enter a command...';
+    // Setup a textarea for multi-line input and a Run button
+    const textarea = document.createElement('textarea');
+    textarea.placeholder = 'Enter commands...';
     
-    // Center the input box at the bottom of the screen
-    Object.assign(input.style, {
+    // Style the textarea
+    Object.assign(textarea.style, {
       position: 'fixed',
-      bottom: '20px', // 20px from the bottom of the screen
-      left: '50%', // Center horizontally
-      transform: 'translateX(-50%)', // Center the input box itself
-      width: '400px', // Wider input box
-      height: '50px',
+      top: '20px', 
+      right: '20px', 
+      width: '400px',
+      height: '200px',
       fontSize: '20px',
       backgroundColor: 'white',
-      color: '#333', // Dark grey text
-      border: '2px solid #ccc', // Light grey border for a cleaner look
+      color: '#333',
+      border: '2px solid #ccc',
       padding: '10px',
-      borderRadius: '8px', // Slightly reduced border radius
-      boxShadow: '0 4px 8px rgba(0, 0, 0, 0.5)', // Softer shadow for a more subtle effect
+      borderRadius: '8px',
+      boxShadow: '0 4px 8px rgba(0, 0, 0, 0.5)',
       zIndex: '1000',
-      outline: 'none', // Remove default outline on focus
+      outline: 'none',
     });
   
-    document.body.appendChild(input);
-    input.focus();
-  
-    input.addEventListener('keydown', (event) => {
-      if (event.key === 'Enter') {
-        const command = input.value.toLowerCase().trim();
-        console.log("Command entered:", command);
-        this.executeCommand(command);
-        input.value = '';
-      }
+    document.body.appendChild(textarea);
+    textarea.focus();
+
+    // Add Run button
+    const runButton = document.createElement('button');
+    runButton.textContent = 'Run';
+    
+    // Style the Run button
+    Object.assign(runButton.style, {
+      position: 'fixed',
+      top: '240px', 
+      right: 'calc(20px + 150px)', 
+      width: '100px',
+      height: '50px',
+      marginTop: '20px', 
+      fontSize: '20px',
+      backgroundColor: '#333',
+      color: 'white',
+      border: 'none',
+      borderRadius: '8px',
+      boxShadow: '0 4px 8px rgba(0, 0, 0, 0.5)',
+      zIndex: '1000',
+      cursor: 'pointer',
+    });
+    
+    document.body.appendChild(runButton);
+
+    runButton.addEventListener('click', () => {
+      const commands = textarea.value.split('\n').map(cmd => cmd.trim());
+      this.commandQueue = [];
+      
+      commands.forEach((command, index) => {
+        if (this.isValidCommand(command)) {
+          this.commandQueue.push(command);
+        } else {
+          alert(`Error on line ${index + 1}: Invalid command '${command}'`);
+        }
+      });
+
+      this.processCommands();
     });
   }
-  
-  
+
+  isValidCommand(command: string) {
+    // List of valid commands
+    const validCommands = ['forward()', 'backward()', 'left()', 'right()', 'jump()', 'jump_forward()', 'jump_left()', 'jump_right()'];
+    return validCommands.includes(command);
+  }
+
   createCommandLibrary() {
     // Create a command library element
     const commandLibrary = document.createElement('div');
@@ -164,7 +199,6 @@ export default class MainScene extends Scene3D {
   
     document.body.appendChild(commandLibrary);
   }
-  
 
   executeCommand(command: string) {
     // Execute movement commands based on input
@@ -196,6 +230,25 @@ export default class MainScene extends Scene3D {
       default:
         console.log('Unknown command:', command);
     }
+  }
+
+  processCommands() {
+    // Check if there are commands to process and not currently processing the queue
+    if (this.commandQueue.length === 0 || this.processingQueue) return;
+    
+    this.processingQueue = true;
+    const command = this.commandQueue.shift();
+    if (command) {
+      this.executeCommand(command);
+    }
+
+    this.time.addEvent({
+      delay: 500, // Delay between commands (in milliseconds)
+      callback: () => {
+        this.processingQueue = false;
+        this.processCommands(); // Continue processing the next command
+      }
+    });
   }
 
   moveInDirection(angleOffset: number) {
@@ -258,4 +311,3 @@ export default class MainScene extends Scene3D {
     }
   }
 }
-
