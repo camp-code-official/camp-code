@@ -87,7 +87,8 @@ const Landing: React.FC = () => {
               padding: '15px 30px',
               borderRadius: '5px',
               fontWeight: 'bold',
-              textTransform: 'uppercase'
+              textTransform: 'uppercase',
+              marginRight: '20px'
             }}>Play</Link>
             <Link to="/game" style={{
               textDecoration: 'none',
@@ -96,8 +97,24 @@ const Landing: React.FC = () => {
               padding: '15px 30px',
               borderRadius: '5px',
               fontWeight: 'bold',
-              textTransform: 'uppercase'
+              textTransform: 'uppercase',
+              marginRight: '20px'
             }}>Learn More</Link>
+
+            {/* Dashboard button */}
+            <Link
+              to="/dashboard"
+              style={{
+                textDecoration: 'none',
+                backgroundColor: '#007BFF',
+                color: '#fff',
+                padding: '15px 30px',
+                borderRadius: '5px',
+                fontWeight: 'bold',
+                textTransform: 'uppercase'
+              }}>
+              Dashboard
+            </Link>
           </div>
           <div style={{ maxWidth: '50%' }}>
             <img src="https://i.pinimg.com/564x/c5/3a/44/c53a44d3af7099b6bb7e7bd5bb472e41.jpg" alt="Camping Image" style={{
