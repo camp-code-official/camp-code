@@ -4,6 +4,7 @@ import Landing from './scripts/screens/Landing';
 import About from './scripts/screens/About';
 import Game from './scripts/screens/Game';
 import Login from './scripts/screens/Login';
+import Dashboard from './scripts/screens/Dashboard'; // Import the Dashboard
 
 const App: React.FC = () => {
   const handleLogin = () => {
@@ -18,6 +19,7 @@ const App: React.FC = () => {
           <Route path="/about" element={<About />} />
           <Route path="/game" element={<Game />} />
           <Route path="/login" element={<Login onLogin={handleLogin} />} />
+          <Route path="/dashboard" element={<Dashboard />} /> {/* Dashboard Route */}
         </Routes>
       </div>
     </Router>
