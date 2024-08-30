@@ -1,6 +1,6 @@
-const path = require('path')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const path = require('path');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: ['./src/Main.tsx'],
@@ -13,7 +13,19 @@ module.exports = {
     extensions: ['.ts', '.tsx', '.js']
   },
   module: {
-    rules: [{ test: /\.tsx?$/, include: path.join(__dirname, '../src'), loader: 'ts-loader' }]
+    rules: [
+      // TypeScript / TSX rules
+      {
+        test: /\.tsx?$/,
+        include: path.join(__dirname, '../src'),
+        loader: 'ts-loader'
+      },
+      // CSS rules
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'], // Add these loaders to handle CSS files
+      }
+    ]
   },
   optimization: {
     splitChunks: {
@@ -28,12 +40,15 @@ module.exports = {
     }
   },
   plugins: [
-    new HtmlWebpackPlugin({ gameName: 'Camp Code', template: 'src/index.html' }),
+    new HtmlWebpackPlugin({
+      gameName: 'Camp Code', // Assuming you use this property somewhere, otherwise it can be removed
+      template: 'src/index.html'
+    }),
     new CopyWebpackPlugin({
       patterns: [
-      { from: 'src/assets', to: 'assets' },
-      { from: 'src/favicon.ico', to: '' }
-
-    ]})
+        { from: 'src/assets', to: 'assets' },
+        { from: 'src/favicon.ico', to: '' }
+      ]
+    })
   ]
-}
+};
