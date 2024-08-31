@@ -119,7 +119,7 @@ const styles = {
         padding: '15px 30px',
         borderRadius: '5px',
         fontWeight: 'bold',
-        textTransform: 'uppercase',
+        textTransform: 'uppercase' as 'uppercase',
         marginTop: '20px',
         display: 'inline-block',
     },

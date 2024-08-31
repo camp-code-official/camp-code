@@ -21,8 +21,12 @@ const Game: React.FC = () => {
       ...Canvas(),
     };
 
-    // Initialize the Phaser game instance and save it in a ref
-    gameRef.current = enable3d(() => new Phaser.Game(config)).withPhysics('assets/ammo');
+    // Initialize the Phaser game instance using a callback for enable3d
+    enable3d(() => {
+      const phaserGame = new Phaser.Game(config);
+      gameRef.current = phaserGame;
+      return phaserGame;
+    }).withPhysics('assets/ammo');
 
     // Cleanup function to destroy the game instance
     return () => {
