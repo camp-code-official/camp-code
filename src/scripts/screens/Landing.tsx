@@ -44,7 +44,7 @@ const Landing: React.FC = () => {
               }}>About</Link>
             </li>
             <li style={{ marginLeft: '20px' }}>
-              <Link to="#" style={{
+              <Link to="https://forms.gle/jSQrvAUN3JD93RCi6" target="_blank" style={{
                 textDecoration: 'none',
                 color: '#007BFF',
                 fontWeight: 'bold'
@@ -90,7 +90,7 @@ const Landing: React.FC = () => {
               textTransform: 'uppercase',
               marginRight: '20px'
             }}>Play</Link>
-            <Link to="/game" style={{
+            <Link to="https://www.linkedin.com/company/camp-code" target="_blank" style={{
               textDecoration: 'none',
               backgroundColor: '#ff5722',
               color: '#fff',

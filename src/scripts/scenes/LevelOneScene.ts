@@ -1,7 +1,7 @@
 import { Scene3D, ExtendedObject3D, ThirdPersonControls } from '@enable3d/phaser-extension';
 import * as THREE from 'three';
 
-export default class MainScene extends Scene3D {
+export default class LevelOneScene extends Scene3D {
   private man?: ExtendedObject3D;
   private controls?: ThirdPersonControls;
   private canJump: boolean = true;
@@ -10,7 +10,7 @@ export default class MainScene extends Scene3D {
   private processingQueue: boolean = false;
 
   constructor() {
-    super({ key: 'MainScene' });
+    super({ key: 'LevelOneScene' });
   }
 
   init() {

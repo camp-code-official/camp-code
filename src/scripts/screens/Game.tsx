@@ -1,8 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import * as Phaser from 'phaser';
 import { enable3d, Canvas } from '@enable3d/phaser-extension';
-import MainScene from '../scenes/mainScene';
-import PreloadScene from '../scenes/preloadScene';
+import PreloadScene from '../scenes/PreloadScene'; 
+import MenuScene from '../scenes/MenuScene'; 
+import LevelOneScene from '../scenes/LevelOneScene'; 
 
 const Game: React.FC = () => {
   const gameRef = useRef<Phaser.Game | null>(null);
@@ -17,7 +18,7 @@ const Game: React.FC = () => {
         width: 1280,
         height: 720,
       },
-      scene: [PreloadScene, MainScene],
+      scene: [PreloadScene, MenuScene, LevelOneScene],
       ...Canvas(),
     };
 
