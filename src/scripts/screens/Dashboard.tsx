@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from './../../../firebase-config';
 import NavBar from '../components/NavBar';
+import Footer from '../components/Footer';
 
 // Mock user data
 const mockUser = {
@@ -18,12 +21,24 @@ const mockUser = {
 
 const Dashboard: React.FC = () => {
     const [user, setUser] = useState(mockUser);
+    const navigate = useNavigate(); 
 
     // Fetch real user data here if you connect with an API
     useEffect(() => {
         // You can fetch user data here using an API or from local storage if logged in
         // setUser(fetchedUserData);
     }, []);
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+          if (!user) {
+            // User is not signed in, redirect to the login page
+            navigate('/login');
+          }
+        });
+    
+        return () => unsubscribe(); // Clean up the subscription on unmount
+    }, [navigate]);
 
     return (
         <div>
@@ -59,6 +74,7 @@ const Dashboard: React.FC = () => {
                     </ul>
                 </div>
             </div>
+            <Footer />
         </div>
     );
 };

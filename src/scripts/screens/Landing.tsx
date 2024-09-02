@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import NavBar from '../components/NavBar';
+import Footer from '../components/Footer';
 
 const Landing: React.FC = () => {
   return (
@@ -24,17 +25,21 @@ const Landing: React.FC = () => {
               color: '#757575',
               marginBottom: '40px'
             }}>A fun and easy way to learn code.</p>
-            <Link to="/login" style={{
-              textDecoration: 'none',
-              backgroundColor: '#ff5722',
-              color: '#fff',
-              padding: '15px 30px',
-              borderRadius: '5px',
-              fontWeight: 'bold',
-              textTransform: 'uppercase',
-              marginRight: '20px'
-            }}>Play</Link>
-            <Link to="https://www.linkedin.com/company/camp-code" target="_blank" style={{
+            <Link
+              to="/login"
+              style={{
+                textDecoration: 'none',
+                backgroundColor: '#007BFF',
+                color: '#fff',
+                padding: '15px 30px',
+                borderRadius: '5px',
+                fontWeight: 'bold',
+                textTransform: 'uppercase',
+                marginRight: '20px'
+              }}>
+              Dashboard
+            </Link>
+            <Link to="/about" style={{
               textDecoration: 'none',
               backgroundColor: '#ff5722',
               color: '#fff',
@@ -44,21 +49,6 @@ const Landing: React.FC = () => {
               textTransform: 'uppercase',
               marginRight: '20px'
             }}>Learn More</Link>
-
-            {/* Dashboard button */}
-            <Link
-              to="/dashboard"
-              style={{
-                textDecoration: 'none',
-                backgroundColor: '#007BFF',
-                color: '#fff',
-                padding: '15px 30px',
-                borderRadius: '5px',
-                fontWeight: 'bold',
-                textTransform: 'uppercase'
-              }}>
-              Dashboard
-            </Link>
           </div>
           <div style={{ maxWidth: '50%' }}>
             <img src="https://i.pinimg.com/564x/c5/3a/44/c53a44d3af7099b6bb7e7bd5bb472e41.jpg" alt="Camping Image" style={{
@@ -70,6 +60,7 @@ const Landing: React.FC = () => {
           </div>
         </section>
       </main>
+      <Footer />
     </div>
   );
 }

@@ -1,15 +1,16 @@
 import React from 'react';
 import NavBar from '../components/NavBar';
+import Footer from '../components/Footer';
 
 const About: React.FC = () => {
   return (
     <div style={{ backgroundColor: '#ffffff', color: '#333', margin: 0, padding: 0 }}>
-      <NavBar/>
+      <NavBar />
 
       <main className="content" style={{ textAlign: 'center', padding: '50px 20px' }}>
         <h1 style={{ color: '#ff8c00', fontSize: '36px' }}>About Camp Code</h1>
         <p style={{ fontSize: '18px', lineHeight: '1.6', maxWidth: '800px', margin: '0 auto' }}>
-          Camp Code is an immersive coding program designed to help you learn Python in a fun and adventurous way. Imagine yourself in a camping scenario where each coding task you complete helps you survive and thrive in the wild. From building a shelter to foraging for food, your coding skills will be your key to mastering the forest.
+          Camp Code is an immersive coding program designed to help you learn programming in a fun and adventurous way. Imagine yourself in a camping scenario where each coding task you complete helps you survive and thrive in the wild. From building a shelter to foraging for food, your coding skills will be your key to mastering the forest.
         </p>
       </main>
 
@@ -17,24 +18,26 @@ const About: React.FC = () => {
         <div style={badgeStyle}>
           <h2 style={{ fontSize: '28px', margin: 0, paddingTop: '100px' }}>Learn Survival Coding</h2>
           <p style={{ fontSize: '16px' }}>
-            As you navigate through the forest, you'll learn the basics of Python programming. Each challenge is a step towards mastering coding fundamentals while you gather resources, set up camp, and keep the forest critters at bay.
+            As you navigate through the forest, you'll learn the basics of programming. Each challenge is a step towards mastering coding fundamentals while you gather resources, set up camp, and keep the forest critters at bay.
           </p>
         </div>
 
         <div style={badgeStyle}>
           <h2 style={{ fontSize: '28px', margin: 0, paddingTop: '100px' }}>Advanced Coding Challenges</h2>
           <p style={{ fontSize: '16px' }}>
-            Once you've set up camp, it's time to delve deeper into Python. Advanced coding challenges will test your skills as you build tools, solve puzzles, and unlock new areas of the forest.
+            Once you've set up camp, it's time to delve deeper into programming. Advanced coding challenges will test your skills as you build tools, solve puzzles, and unlock new areas of the forest.
           </p>
         </div>
 
         <div style={badgeStyle}>
           <h2 style={{ fontSize: '28px', margin: 0, paddingTop: '100px' }}>Earn Badges & Rewards</h2>
           <p style={{ fontSize: '16px' }}>
-            Complete tasks and challenges to earn badges that showcase your coding prowess. Collect rewards as you progress, and watch your coding skills grow alongside your survival instincts.
+            Complete tasks and challenges to earn badges that showcase your coding prowess. Collect rewards as you progress, and watch your programming skills grow alongside your survival instincts.
           </p>
         </div>
       </div>
+      
+      <Footer />
     </div>
   );
 };

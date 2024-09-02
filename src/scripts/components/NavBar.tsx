@@ -1,7 +1,27 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { auth } from './../../../firebase-config';
+import { signOut } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
 
 const NavBar: React.FC = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setIsLoggedIn(!!user);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  const handleLogout = async () => {
+    await signOut(auth);
+    setIsLoggedIn(false);
+    navigate('/login');
+  };
+
   return (
     <header style={{
       display: 'flex',
@@ -15,7 +35,7 @@ const NavBar: React.FC = () => {
         display: 'flex',
         alignItems: 'center'
       }}>
-         <Link to="/" style={{ textDecoration: 'none' }}>
+        <Link to="/" style={{ textDecoration: 'none' }}>
           <img src="../assets/img/campcode.png" alt="Camp Code Logo" style={{
             height: '50px',
             marginRight: '10px',
@@ -55,11 +75,21 @@ const NavBar: React.FC = () => {
             }}>Contact</Link>
           </li>
           <li style={{ marginLeft: '20px' }}>
-            <Link to="/login" style={{
-              textDecoration: 'none',
-              color: '#007BFF',
-              fontWeight: 'bold'
-            }}>Login</Link>
+            {isLoggedIn ? (
+              <button onClick={handleLogout} style={{
+                backgroundColor: 'transparent',
+                border: 'none',
+                color: '#007BFF',
+                fontWeight: 'bold',
+                cursor: 'pointer'
+              }}>Logout</button>
+            ) : (
+              <Link to="/login" style={{
+                textDecoration: 'none',
+                color: '#007BFF',
+                fontWeight: 'bold'
+              }}>Login</Link>
+            )}
           </li>
         </ul>
       </nav>

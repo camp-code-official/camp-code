@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import { auth } from './../../../firebase-config';
 import NavBar from '../components/NavBar';
+import Footer from '../components/Footer';
 
 const Login: React.FC<{ onLogin: () => void }> = ({ onLogin }) => {
   const [email, setEmail] = useState('');
@@ -13,8 +14,8 @@ const Login: React.FC<{ onLogin: () => void }> = ({ onLogin }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        // User is signed in, redirect to the game page
-        navigate('/game');
+        // User is signed in, redirect to the dashboard page
+        navigate('/dashboard');
       }
     });
 
@@ -26,7 +27,7 @@ const Login: React.FC<{ onLogin: () => void }> = ({ onLogin }) => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       onLogin();  // Optionally handle state changes or other logic
-      navigate('/game'); // Navigate to the game upon successful login
+      navigate('/dashboard'); // Navigate to the dashboard upon successful login
     } catch (error) {
       if (error instanceof Error) {
         setError(error.message); // Display Firebase error messages
@@ -64,6 +65,8 @@ const Login: React.FC<{ onLogin: () => void }> = ({ onLogin }) => {
           </button>
         </form>
       </main>
+
+      <Footer />
     </div>
   );
 };

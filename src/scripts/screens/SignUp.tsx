@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from './../../../firebase-config';
 import NavBar from '../components/NavBar';
-
+import Footer from '../components/Footer';
 
 const SignUp: React.FC<{ onSignUp: () => void }> = ({ onSignUp }) => {
   const [email, setEmail] = useState('');
@@ -23,7 +23,7 @@ const SignUp: React.FC<{ onSignUp: () => void }> = ({ onSignUp }) => {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       onSignUp(); // This could be used to manage login state or direct post-signup actions
-      navigate('/game'); // Optionally navigate to dashboard or some other page
+      navigate('/dashboard'); // Optionally navigate to dashboard or some other page
     } catch (error) {
       if (error instanceof Error) {
         setError('Error creating user: ' + error.message);
@@ -64,6 +64,7 @@ const SignUp: React.FC<{ onSignUp: () => void }> = ({ onSignUp }) => {
           </button>
         </form>
       </main>
+      <Footer />
     </div>
   );
 };
