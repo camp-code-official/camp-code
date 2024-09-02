@@ -143,9 +143,6 @@ export default class LevelOneScene extends Scene3D {
     }
   }
   
-  
-  
-
   loadPlayer() {
     // Load the player model and add to the scene
     this.third.load.gltf('/assets/glb/box_man.glb').then(object => {
@@ -211,16 +208,27 @@ export default class LevelOneScene extends Scene3D {
   }
 
   setupInput() {
-    // Setup a textarea for multi-line input and a Run button
+    // Create a container for the textarea and the Run button
+    const inputContainer = document.createElement('div');
+    Object.assign(inputContainer.style, {
+      position: 'fixed',
+      bottom: '20px',
+      right: '20px',
+      width: '400px',
+      zIndex: '1000',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'flex-end', // Align items to the right
+      gap: '10px', // Space between the textarea and the button
+    });
+  
+    // Create the textarea
     const textarea = document.createElement('textarea');
     textarea.placeholder = `Enter commands...\n(e.g., "for (let i = 0; i < 3; i++) {\n  forward();\n}")`;
     
     // Style the textarea for proper code formatting
     Object.assign(textarea.style, {
-      position: 'fixed',
-      top: '20px',
-      right: '20px',
-      width: '400px',
+      width: '100%',
       height: '200px',
       fontSize: '16px',
       backgroundColor: '#f5f5f5',
@@ -229,14 +237,10 @@ export default class LevelOneScene extends Scene3D {
       padding: '10px',
       borderRadius: '8px',
       boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-      zIndex: '1000',
       outline: 'none',
-      fontFamily: 'monospace', // Monospace font for proper indentation
-      whiteSpace: 'pre-wrap', // Preserve whitespace and line breaks
+      fontFamily: 'monospace',
+      whiteSpace: 'pre-wrap',
     });
-  
-    document.body.appendChild(textarea);
-    textarea.focus();
   
     // Add event listener for 'Tab' key to allow indentation
     textarea.addEventListener('keydown', (event) => {
@@ -251,37 +255,31 @@ export default class LevelOneScene extends Scene3D {
       }
     });
   
-    // Add Run button
+    // Create the Run button
     const runButton = document.createElement('button');
     runButton.textContent = 'Run';
     
     // Style the Run button
     Object.assign(runButton.style, {
-      position: 'fixed',
-      top: '240px',
-      right: 'calc(20px + 150px)',
+      alignSelf: 'center',
       width: '100px',
       height: '50px',
-      marginTop: '20px',
       fontSize: '16px',
       backgroundColor: '#4CAF50',
       color: 'white',
       border: 'none',
       borderRadius: '8px',
       boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-      zIndex: '1000',
       cursor: 'pointer',
     });
-  
-    document.body.appendChild(runButton);
   
     runButton.addEventListener('click', () => {
       const inputText = textarea.value;
       this.commandQueue = [];
-  
+      
       // Split commands by line and process each line
       const lines = inputText.split('\n').map(line => line.trim());
-  
+      
       // Combine lines properly for loop handling
       let combinedLines = '';
       let insideLoop = false;
@@ -302,10 +300,17 @@ export default class LevelOneScene extends Scene3D {
           alert(`Error on line ${index + 1}: Invalid command '${line}'`);
         }
       });
-  
+      
       this.processCommands();
       textarea.value = ''; // Empty the input box after running
     });
+  
+    // Append textarea and button to the container
+    inputContainer.appendChild(textarea);
+    inputContainer.appendChild(runButton);
+  
+    // Add the container to the document body
+    document.body.appendChild(inputContainer);
   }
   
   handleForLoop(line: string, lineNumber: number) {
@@ -346,7 +351,7 @@ export default class LevelOneScene extends Scene3D {
     const commandLibraryContainer = document.createElement('div');
     Object.assign(commandLibraryContainer.style, {
       position: 'fixed',
-      top: '20px',
+      bottom: '20px', // Adjusted from 'top' to 'bottom'
       left: '20px',
       width: '300px',
       maxHeight: '300px',
@@ -360,7 +365,7 @@ export default class LevelOneScene extends Scene3D {
       boxShadow: '0 4px 16px rgba(0, 0, 0, 0.2)',
       transition: 'max-height 0.3s ease', // Smooth transition for collapse
     });
-  
+    
     // Create a button to toggle the collapse state
     const toggleButton = document.createElement('button');
     toggleButton.textContent = 'Command Library ▼';
@@ -376,7 +381,7 @@ export default class LevelOneScene extends Scene3D {
       marginBottom: '10px',
       textAlign: 'left',
     });
-  
+    
     // Create the content for the command library
     const commandLibraryContent = document.createElement('div');
     commandLibraryContent.innerHTML = `
@@ -403,26 +408,25 @@ export default class LevelOneScene extends Scene3D {
         </li>
       </ul>
     `;
-  
+    
     // Initially hide the command library content
     commandLibraryContent.style.display = 'none';
-  
+    
     // Toggle button click event to show/hide content
     toggleButton.addEventListener('click', () => {
       const isHidden = commandLibraryContent.style.display === 'none';
       commandLibraryContent.style.display = isHidden ? 'block' : 'none';
       toggleButton.textContent = isHidden ? 'Command Library ▲' : 'Command Library ▼';
     });
-  
+    
     // Append the button and content to the container
     commandLibraryContainer.appendChild(toggleButton);
     commandLibraryContainer.appendChild(commandLibraryContent);
-  
+    
     // Add the command library container to the document body
     document.body.appendChild(commandLibraryContainer);
   }
   
-
   executeCommand(command: string) {
     // Execute movement commands based on input
     switch (command) {

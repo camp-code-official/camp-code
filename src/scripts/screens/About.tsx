@@ -1,65 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import NavBar from '../components/NavBar';
 
 const About: React.FC = () => {
   return (
-    <div style={{ fontFamily: 'Arial, sans-serif', backgroundColor: '#ffffff', color: '#333', margin: 0, padding: 0 }}>
-      <header style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        backgroundColor: '#fff',
-        padding: '20px',
-        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
-      }}>
-        <div style={{
-          display: 'flex',
-          alignItems: 'center'
-        }}>
-          <img src="../assets/img/campcode.png" alt="Camp Code Logo" style={{
-            height: '50px',
-            marginRight: '10px'
-          }} />
-        </div>
-        <nav>
-          <ul style={{
-            listStyle: 'none',
-            margin: '0',
-            padding: '0',
-            display: 'flex',
-            justifyContent: 'flex-end'
-          }}>
-            <li style={{ marginLeft: '20px' }}>
-              <Link to="/" style={{
-                textDecoration: 'none',
-                color: '#007BFF',
-                fontWeight: 'bold'
-              }}>Home</Link>
-            </li>
-            <li style={{ marginLeft: '20px' }}>
-              <Link to="/about" style={{
-                textDecoration: 'none',
-                color: '#007BFF',
-                fontWeight: 'bold'
-              }}>About</Link>
-            </li>
-            <li style={{ marginLeft: '20px' }}>
-              <Link to="#" style={{
-                textDecoration: 'none',
-                color: '#007BFF',
-                fontWeight: 'bold'
-              }}>Contact</Link>
-            </li>
-            <li style={{ marginLeft: '20px' }}>
-              <Link to="/login" style={{
-                textDecoration: 'none',
-                color: '#007BFF',
-                fontWeight: 'bold'
-              }}>Login</Link>
-            </li>
-          </ul>
-        </nav>
-      </header>
+    <div style={{ backgroundColor: '#ffffff', color: '#333', margin: 0, padding: 0 }}>
+      <NavBar/>
 
       <main className="content" style={{ textAlign: 'center', padding: '50px 20px' }}>
         <h1 style={{ color: '#ff8c00', fontSize: '36px' }}>About Camp Code</h1>

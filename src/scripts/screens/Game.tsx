@@ -1,9 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import * as Phaser from 'phaser';
 import { enable3d, Canvas } from '@enable3d/phaser-extension';
-import PreloadScene from '../scenes/PreloadScene'; 
-import MenuScene from '../scenes/MenuScene'; 
-import LevelOneScene from '../scenes/LevelOneScene'; 
+import PreloadScene from '../scenes/PreloadScene';
+import MenuScene from '../scenes/MenuScene';
+import LevelOneScene from '../scenes/LevelOneScene';
+import NavBar from '../components/NavBar';
 
 const Game: React.FC = () => {
   const gameRef = useRef<Phaser.Game | null>(null);
@@ -38,7 +39,12 @@ const Game: React.FC = () => {
     };
   }, []);
 
-  return <div id="phaser-game" style={{ width: '100%', height: '100%' }} />;
+  return (
+    <div>
+      <NavBar />
+      <div id="phaser-game" style={{ width: '100%', height: '100%' }} />
+    </div>
+  );
 };
 
 export default Game;

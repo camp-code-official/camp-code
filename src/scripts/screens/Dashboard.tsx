@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import NavBar from '../components/NavBar';
 
 // Mock user data
 const mockUser = {
@@ -25,35 +26,38 @@ const Dashboard: React.FC = () => {
     }, []);
 
     return (
-        <div style={styles.dashboard}>
-            <div style={styles.userInfo}>
-                <h1>Welcome, {user.username}</h1>
-                <div style={styles.characterInfo}>
-                    <img
-                        src={user.character.avatarUrl}
-                        alt={user.character.name}
-                        style={styles.characterAvatar}
-                    />
-                    <p>{user.character.name}</p>
+        <div>
+            <NavBar />
+            <div style={styles.dashboard}>
+                <div style={styles.userInfo}>
+                    <h1>Welcome, {user.username}</h1>
+                    <div style={styles.characterInfo}>
+                        <img
+                            src={user.character.avatarUrl}
+                            alt={user.character.name}
+                            style={styles.characterAvatar}
+                        />
+                        <p>{user.character.name}</p>
+                    </div>
+                    <div style={styles.progressInfo}>
+                        <h2>Progress</h2>
+                        <p>{user.progress}</p>
+                    </div>
+                    <Link to="/game" style={styles.playButton}>
+                        Play
+                    </Link>
                 </div>
-                <div style={styles.progressInfo}>
-                    <h2>Progress</h2>
-                    <p>{user.progress}</p>
+                <div style={styles.badgesInfo}>
+                    <h2>Badges</h2>
+                    <ul style={styles.badgeList}>
+                        {user.badges.map((badge, index) => (
+                            <li key={index} style={styles.badgeItem}>
+                                <h3>{badge.name}</h3>
+                                <p>{badge.description}</p>
+                            </li>
+                        ))}
+                    </ul>
                 </div>
-                <Link to="/game" style={styles.playButton}>
-                    Play
-                </Link>
-            </div>
-            <div style={styles.badgesInfo}>
-                <h2>Badges</h2>
-                <ul style={styles.badgeList}>
-                    {user.badges.map((badge, index) => (
-                        <li key={index} style={styles.badgeItem}>
-                            <h3>{badge.name}</h3>
-                            <p>{badge.description}</p>
-                        </li>
-                    ))}
-                </ul>
             </div>
         </div>
     );

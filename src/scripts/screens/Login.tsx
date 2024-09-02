@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from './../../../firebase-config'; // Ensure this path is correct to your Firebase config
+import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
+import { auth } from './../../../firebase-config';
+import NavBar from '../components/NavBar';
 
 const Login: React.FC<{ onLogin: () => void }> = ({ onLogin }) => {
   const [email, setEmail] = useState('');
@@ -9,12 +10,23 @@ const Login: React.FC<{ onLogin: () => void }> = ({ onLogin }) => {
   const [error, setError] = useState('');
   const navigate = useNavigate(); // Hook for navigation
 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, redirect to the game page
+        navigate('/game');
+      }
+    });
+
+    return () => unsubscribe(); // Clean up the subscription on unmount
+  }, [navigate]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
       onLogin();  // Optionally handle state changes or other logic
-      navigate('/game'); // Navigate to the dashboard upon successful login
+      navigate('/game'); // Navigate to the game upon successful login
     } catch (error) {
       if (error instanceof Error) {
         setError(error.message); // Display Firebase error messages
@@ -30,62 +42,7 @@ const Login: React.FC<{ onLogin: () => void }> = ({ onLogin }) => {
 
   return (
     <div>
-      <header style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        backgroundColor: '#fff',
-        padding: '20px',
-        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
-      }}>
-        <div style={{
-          display: 'flex',
-          alignItems: 'center'
-        }}>
-          <img src="../assets/img/campcode.png" alt="Camp Code Logo" style={{
-            height: '50px',
-            marginRight: '10px'
-          }} />
-        </div>
-        <nav>
-          <ul style={{
-            listStyle: 'none',
-            margin: '0',
-            padding: '0',
-            display: 'flex',
-            justifyContent: 'flex-end'
-          }}>
-            <li style={{ marginLeft: '20px' }}>
-              <Link to="/" style={{
-                textDecoration: 'none',
-                color: '#007BFF',
-                fontWeight: 'bold'
-              }}>Home</Link>
-            </li>
-            <li style={{ marginLeft: '20px' }}>
-              <Link to="/about" style={{
-                textDecoration: 'none',
-                color: '#007BFF',
-                fontWeight: 'bold'
-              }}>About</Link>
-            </li>
-            <li style={{ marginLeft: '20px' }}>
-              <Link to="/contact" style={{
-                textDecoration: 'none',
-                color: '#007BFF',
-                fontWeight: 'bold'
-              }}>Contact</Link>
-            </li>
-            <li style={{ marginLeft: '20px' }}>
-              <Link to="/login" style={{
-                textDecoration: 'none',
-                color: '#007BFF',
-                fontWeight: 'bold'
-              }}>Login</Link>
-            </li>
-          </ul>
-        </nav>
-      </header>
+      <NavBar/>
 
       <main style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'calc(100vh - 80px)' }}>
         <form onSubmit={handleSubmit} style={{ background: 'white', padding: '20px', borderRadius: '8px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)', maxWidth: '400px', width: '100%' }}>
