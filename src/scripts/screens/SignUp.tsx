@@ -4,8 +4,11 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from './../../../firebase-config';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
+import clearBody from '../utils/ClearBody';
 
 const SignUp: React.FC<{ onSignUp: () => void }> = ({ onSignUp }) => {
+  clearBody();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');

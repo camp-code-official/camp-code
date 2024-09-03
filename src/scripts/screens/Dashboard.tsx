@@ -4,6 +4,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './../../../firebase-config';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
+import clearBody from '../utils/ClearBody';
 
 // Mock user data
 const mockUser = {
@@ -20,6 +21,8 @@ const mockUser = {
 };
 
 const Dashboard: React.FC = () => {
+    clearBody();
+    
     const [user, setUser] = useState(mockUser);
     const navigate = useNavigate(); 
 

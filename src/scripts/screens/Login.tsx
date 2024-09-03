@@ -4,8 +4,11 @@ import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import { auth } from './../../../firebase-config';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
+import clearBody from '../utils/ClearBody';
 
 const Login: React.FC<{ onLogin: () => void }> = ({ onLogin }) => {
+  clearBody();
+  
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');

@@ -1,8 +1,11 @@
 import React from 'react';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
+import clearBody from '../utils/ClearBody';
 
 const About: React.FC = () => {
+  clearBody();
+  
   return (
     <div style={{ backgroundColor: '#ffffff', color: '#333', margin: 0, padding: 0 }}>
       <NavBar />
