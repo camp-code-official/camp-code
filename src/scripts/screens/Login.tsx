@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from './../../../firebase-config'; // Ensure this path is correct to your Firebase config
+import { auth } from './../../../firebase-config.js'; // Ensure this path is correct to your Firebase config
 
 const Login: React.FC<{ onLogin: () => void }> = ({ onLogin }) => {
   const [email, setEmail] = useState('');

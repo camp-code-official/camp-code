@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from './../../../firebase-config'; // Ensure the path is correct
+import { auth } from './../../../firebase-config.js'; // Ensure the path is correct
 
 const SignUp: React.FC<{ onSignUp: () => void }> = ({ onSignUp }) => {
   const [email, setEmail] = useState('');
