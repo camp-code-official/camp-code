@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as Phaser from 'phaser';
 import { enable3d, Canvas } from '@enable3d/phaser-extension';
-import PreloadScene from '../scenes/PreloadScene';
+import PreloadScene from '../scenes/preloadScene';
 import MenuScene from '../scenes/MenuScene';
 import LevelOneScene from '../scenes/LevelOneScene';
 import { onAuthStateChanged } from 'firebase/auth';

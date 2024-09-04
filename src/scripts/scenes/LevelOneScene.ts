@@ -28,11 +28,14 @@ export default class LevelOneScene extends Scene3D {
     // Setup the basic scene
     this.third.warpSpeed('camera', 'sky', 'ground', 'light');
   
+    //Add landscape
+    this.loadLandscape()
+
     // Create a base terrain resembling a mountain or forest trail
-    this.createTerrain();
+    //this.createTerrain();
   
     // Add environmental elements like trees, rocks, and bushes
-    this.addEnvironmentalElements();
+    //this.addEnvironmentalElements();
   
     // Add some ambient and directional lighting for a natural feel
     const ambientLight = new THREE.AmbientLight(0xaaaaaa, 0.6); // Soft ambient light
@@ -43,6 +46,38 @@ export default class LevelOneScene extends Scene3D {
     directionalLight.castShadow = true;
     this.third.scene.add(directionalLight);
   }
+
+  loadLandscape() {
+    this.third.load.gltf('/assets/glb/camp_code_landscape.glb').then((loadedModel) => {
+      const landscapeGroup = loadedModel.scene;
+
+        //ExtendedObject3D to hold landscape 
+        const landscape = new ExtendedObject3D();
+        landscape.add(landscapeGroup);
+
+       //Scaling and positioning scene
+        landscape.scale.set(1, 1, 1); //Adjusting scaling
+        landscape.position.set(-10, .05, -8); //Adjusting positioning 
+        landscape.traverse((child) => {
+          if (child.isMesh) {
+            child.castShadow = true; 
+            child.receiveShadow = true; 
+          }
+        });
+
+        //rotating the landscape
+        landscape.rotation.set(
+          0, //x
+          Math.PI/2, //y
+          0 //z
+        )
+
+        this.third.scene.add(landscape); 
+        this.third.physics.add.existing(landscape, { mass: 0 }); //making scene static
+    });
+  }
+
+  /** 
   
   createTerrain() {
     // Create a plane geometry for the ground
@@ -142,6 +177,7 @@ export default class LevelOneScene extends Scene3D {
       this.third.physics.add.existing(pebble, { mass: 0 }); // Static pebbles
     }
   }
+    */
   
   loadPlayer() {
     // Load the player model and add to the scene
@@ -172,7 +208,7 @@ export default class LevelOneScene extends Scene3D {
       }
     });
 
-    this.man.position.set(0, 2, 8);
+    this.man.position.set(-10, 2, 8);
     this.third.add.existing(this.man);
     this.third.physics.add.existing(this.man, {
       shape: 'capsule',

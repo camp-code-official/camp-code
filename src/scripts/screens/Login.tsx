@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from './../../../firebase-config.js'; // Ensure this path is correct to your Firebase config
-=======
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
@@ -11,7 +5,6 @@ import { auth } from './../../../firebase-config';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import clearBody from '../utils/ClearBody';
->>>>>>> d9c7bf376ca0c7799a6053a2e90c21d707f059c3
 
 const Login: React.FC<{ onLogin: () => void }> = ({ onLogin }) => {
   clearBody();
