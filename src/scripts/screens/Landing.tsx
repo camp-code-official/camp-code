@@ -9,7 +9,7 @@ const Landing: React.FC = () => {
 
   return (
     <div>
-      <NavBar/>
+      <NavBar />
       <main>
         <section style={{
           display: 'flex',
