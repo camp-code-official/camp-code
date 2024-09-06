@@ -1,11 +1,28 @@
 import React, { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import * as Phaser from 'phaser';
 import { enable3d, Canvas } from '@enable3d/phaser-extension';
-import MainScene from '../scenes/mainScene';
 import PreloadScene from '../scenes/preloadScene';
+import MenuScene from '../scenes/MenuScene';
+import LevelOneScene from '../scenes/LevelOneScene';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from './../../../firebase-config';
+import NavBar from '../components/NavBar';
 
 const Game: React.FC = () => {
   const gameRef = useRef<Phaser.Game | null>(null);
+  const navigate = useNavigate(); 
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        // User is not signed in, redirect to the login page
+        navigate('/login');
+      }
+    });
+
+    return () => unsubscribe(); // Clean up the subscription on unmount
+  }, [navigate]);
 
   useEffect(() => {
     const config: Phaser.Types.Core.GameConfig = {
@@ -17,12 +34,16 @@ const Game: React.FC = () => {
         width: 1280,
         height: 720,
       },
-      scene: [PreloadScene, MainScene],
+      scene: [PreloadScene, MenuScene, LevelOneScene],
       ...Canvas(),
     };
 
-    // Initialize the Phaser game instance and save it in a ref
-    gameRef.current = enable3d(() => new Phaser.Game(config)).withPhysics('assets/ammo');
+    // Initialize the Phaser game instance using a callback for enable3d
+    enable3d(() => {
+      const phaserGame = new Phaser.Game(config);
+      gameRef.current = phaserGame;
+      return phaserGame;
+    }).withPhysics('assets/ammo');
 
     // Cleanup function to destroy the game instance
     return () => {
@@ -33,7 +54,12 @@ const Game: React.FC = () => {
     };
   }, []);
 
-  return <div id="phaser-game" style={{ width: '100%', height: '100%' }} />;
+  return (
+    <div>
+      <NavBar />
+      <div id="phaser-game" style={{ width: '100%', height: '100%' }} />
+    </div>
+  );
 };
 
 export default Game;

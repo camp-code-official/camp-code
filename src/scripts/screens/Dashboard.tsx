@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from './../../../firebase-config';
+import NavBar from '../components/NavBar';
+import Footer from '../components/Footer';
+import clearBody from '../utils/ClearBody';
 
 // Mock user data
 const mockUser = {
@@ -16,7 +21,10 @@ const mockUser = {
 };
 
 const Dashboard: React.FC = () => {
+    clearBody();
+    
     const [user, setUser] = useState(mockUser);
+    const navigate = useNavigate(); 
 
     // Fetch real user data here if you connect with an API
     useEffect(() => {
@@ -24,37 +32,52 @@ const Dashboard: React.FC = () => {
         // setUser(fetchedUserData);
     }, []);
 
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+          if (!user) {
+            // User is not signed in, redirect to the login page
+            navigate('/login');
+          }
+        });
+    
+        return () => unsubscribe(); // Clean up the subscription on unmount
+    }, [navigate]);
+
     return (
-        <div style={styles.dashboard}>
-            <div style={styles.userInfo}>
-                <h1>Welcome, {user.username}</h1>
-                <div style={styles.characterInfo}>
-                    <img
-                        src={user.character.avatarUrl}
-                        alt={user.character.name}
-                        style={styles.characterAvatar}
-                    />
-                    <p>{user.character.name}</p>
+        <div>
+            <NavBar />
+            <div style={styles.dashboard}>
+                <div style={styles.userInfo}>
+                    <h1>Welcome, {user.username}</h1>
+                    <div style={styles.characterInfo}>
+                        <img
+                            src={user.character.avatarUrl}
+                            alt={user.character.name}
+                            style={styles.characterAvatar}
+                        />
+                        <p>{user.character.name}</p>
+                    </div>
+                    <div style={styles.progressInfo}>
+                        <h2>Progress</h2>
+                        <p>{user.progress}</p>
+                    </div>
+                    <Link to="/game" style={styles.playButton}>
+                        Play
+                    </Link>
                 </div>
-                <div style={styles.progressInfo}>
-                    <h2>Progress</h2>
-                    <p>{user.progress}</p>
+                <div style={styles.badgesInfo}>
+                    <h2>Badges</h2>
+                    <ul style={styles.badgeList}>
+                        {user.badges.map((badge, index) => (
+                            <li key={index} style={styles.badgeItem}>
+                                <h3>{badge.name}</h3>
+                                <p>{badge.description}</p>
+                            </li>
+                        ))}
+                    </ul>
                 </div>
-                <Link to="/game" style={styles.playButton}>
-                    Play
-                </Link>
             </div>
-            <div style={styles.badgesInfo}>
-                <h2>Badges</h2>
-                <ul style={styles.badgeList}>
-                    {user.badges.map((badge, index) => (
-                        <li key={index} style={styles.badgeItem}>
-                            <h3>{badge.name}</h3>
-                            <p>{badge.description}</p>
-                        </li>
-                    ))}
-                </ul>
-            </div>
+            <Footer />
         </div>
     );
 };
@@ -119,7 +142,7 @@ const styles = {
         padding: '15px 30px',
         borderRadius: '5px',
         fontWeight: 'bold',
-        textTransform: 'uppercase',
+        textTransform: 'uppercase' as 'uppercase',
         marginTop: '20px',
         display: 'inline-block',
     },
