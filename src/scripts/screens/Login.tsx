@@ -8,7 +8,7 @@ import clearBody from '../utils/ClearBody';
 
 const Login: React.FC<{ onLogin: () => void }> = ({ onLogin }) => {
   clearBody();
-  
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -46,7 +46,7 @@ const Login: React.FC<{ onLogin: () => void }> = ({ onLogin }) => {
 
   return (
     <div>
-      <NavBar/>
+      <NavBar />
 
       <main style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'calc(100vh - 80px)' }}>
         <form onSubmit={handleSubmit} style={{ background: 'white', padding: '20px', borderRadius: '8px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)', maxWidth: '400px', width: '100%' }}>

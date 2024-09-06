@@ -9,10 +9,10 @@ import clearBody from '../utils/ClearBody';
 // Mock user data
 const mockUser = {
     username: 'User',
-    progress: 'Level 7',
+    progress: 'Level 1',
     badges: [
-        { name: 'Skill 1', description: 'Blah Blah' },
-        { name: 'Skill 2', description: 'Blah Blah' }
+        { name: 'Skill 1', description: '' },
+        { name: 'Skill 2', description: '' }
     ],
     character: {
         name: '',
@@ -22,9 +22,9 @@ const mockUser = {
 
 const Dashboard: React.FC = () => {
     clearBody();
-    
+
     const [user, setUser] = useState(mockUser);
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
 
     // Fetch real user data here if you connect with an API
     useEffect(() => {
@@ -34,12 +34,12 @@ const Dashboard: React.FC = () => {
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
-          if (!user) {
-            // User is not signed in, redirect to the login page
-            navigate('/login');
-          }
+            if (!user) {
+                // User is not signed in, redirect to the login page
+                navigate('/login');
+            }
         });
-    
+
         return () => unsubscribe(); // Clean up the subscription on unmount
     }, [navigate]);
 
