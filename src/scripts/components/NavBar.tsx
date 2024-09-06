@@ -28,16 +28,16 @@ const NavBar: React.FC = () => {
       justifyContent: 'space-between',
       alignItems: 'center',
       backgroundColor: '#fff',
-      padding: '20px',
+      padding: '25px',
       boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
     }}>
       <div style={{
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
       }}>
         <Link to="/" style={{ textDecoration: 'none' }}>
           <img src="../assets/img/campcode2.PNG" alt="Camp Code Logo" style={{
-            height: '100px',
+            height: '70px',
             marginLeft: '10px',
             cursor: 'pointer',
             userSelect: 'none',
