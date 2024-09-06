@@ -10,57 +10,106 @@ const Landing: React.FC = () => {
   return (
     <div>
       <NavBar />
-      <main>
+      <main style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'column',
+        textAlign: 'center',
+        padding: '40px 20px', // Increased padding for spacing
+        backgroundColor: '#ffffff', // White background for clarity
+        minHeight: '100vh'
+      }}>
         <section style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: '50px',
-        }}>
-          <div style={{ maxWidth: '50%' }}>
-            <h1 style={{
-              fontSize: '4em',
-              color: '#ff9800',
-              marginBottom: '20px'
-            }}>CAMP CODE</h1>
+            marginBottom: '30px',
+            color: '#ffffff', // White text color for readability
+            marginTop: '15%',
+          }}>
+            <img
+              src="../assets/img/campcode.png"
+              alt="Camp Code Logo"
+              style={{
+                height: '100px', // Adjust the size as needed
+                marginBottom: '20px',
+                display: 'block', // Center the image
+                margin: '0 auto',
+              }}
+            />
             <p style={{
-              fontSize: '1.2em',
-              color: '#757575',
-              marginBottom: '40px'
+              fontSize: '1.3em',
+              color: '#a0a0a0', // Lighter gray for subtle text
+              marginBottom: '30px'
             }}>A fun and easy way to learn code.</p>
             <Link
               to="/login"
               style={{
                 textDecoration: 'none',
-                backgroundColor: '#007BFF',
+                backgroundColor: '#00aaff', // Bright blue for main button
                 color: '#fff',
-                padding: '15px 30px',
+                padding: '12px 24px',
                 borderRadius: '5px',
                 fontWeight: 'bold',
                 textTransform: 'uppercase',
-                marginRight: '20px'
+                marginRight: '15px',
+                boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
               }}>
               Dashboard
             </Link>
             <Link to="/about" style={{
               textDecoration: 'none',
-              backgroundColor: '#ff5722',
-              color: '#fff',
-              padding: '15px 30px',
+              backgroundColor: '#fff', // White background for less focus
+              color: '#ff6f00', // Orange outline color for subtlety
+              padding: '12px 24px',
               borderRadius: '5px',
               fontWeight: 'bold',
               textTransform: 'uppercase',
-              marginRight: '20px'
+              border: '2px solid #ff6f00', // Orange border
+              boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
             }}>Learn More</Link>
-          </div>
-          <div style={{ maxWidth: '50%' }}>
-            <img src="https://i.pinimg.com/564x/c5/3a/44/c53a44d3af7099b6bb7e7bd5bb472e41.jpg" alt="Camping Image" style={{
-              maxWidth: '100%',
-              height: 'auto',
-              userSelect: 'none',
-              pointerEvents: 'none'
-            }} />
-          </div>
+          </section>
+
+        {/* Video Section */}
+        <section style={{
+          width: '50vw', // Half width of the viewport
+          height: '28.125vw', // Half the height to maintain proportional 16:9 aspect ratio
+          position: 'relative',
+          overflow: 'hidden',
+          borderRadius: '10px', // Rounded corners for the video
+          boxShadow: '0 8px 16px rgba(0, 0, 0, 0.2)', // Add shadow to the video container
+          marginTop: '20%',
+          backgroundColor: '#f5f5f5', // Light gray background to separate the video
+          padding: '10px'
+        }}>
+          <p style={{
+            position: 'absolute',
+            top: '10px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            fontSize: '1em',
+            color: '#333',
+            fontWeight: 'bold',
+            backgroundColor: '#fff',
+            padding: '5px 10px',
+            borderRadius: '5px',
+            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+          }}>
+            Game Demo
+          </p>
+          <iframe
+            width="100%"
+            height="100%"
+            src="https://www.youtube.com/embed/MmB9b5njVbA?controls=1&autoplay=1&mute=1&loop=1&playlist=MmB9b5njVbA"
+            title="YouTube video"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              border: 'none', // Remove any default borders
+            }}
+          />
         </section>
       </main>
       <Footer />

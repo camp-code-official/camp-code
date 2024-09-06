@@ -36,12 +36,14 @@ const NavBar: React.FC = () => {
         alignItems: 'center'
       }}>
         <Link to="/" style={{ textDecoration: 'none' }}>
-          <img src="../assets/img/campcode.png" alt="Camp Code Logo" style={{
-            height: '50px',
-            marginRight: '10px',
+          <img src="../assets/img/campcode2.PNG" alt="Camp Code Logo" style={{
+            height: '100px',
+            marginLeft: '10px',
             cursor: 'pointer',
             userSelect: 'none',
-            pointerEvents: 'none'
+            pointerEvents: 'none',
+            marginTop: '-30px',
+            marginBottom: '-30px'
           }} />
         </Link>
       </div>
