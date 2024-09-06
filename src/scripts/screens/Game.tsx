@@ -63,8 +63,8 @@ const Game: React.FC = () => {
           width: '100%',
           height: 'calc(100vh - <NavBar height> - 1mm)', 
           margin: 0,
-          marginTop: '-80px',
-          marginBottom: '20px'
+          marginTop: '60px',
+          marginBottom: '30px'
         }}
       />
     </div>
