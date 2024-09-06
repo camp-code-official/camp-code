@@ -57,7 +57,16 @@ const Game: React.FC = () => {
   return (
     <div>
       <NavBar />
-      <div id="phaser-game" style={{ width: '100%', height: '100%' }} />
+      <div
+        id="phaser-game"
+        style={{
+          width: '100%',
+          height: 'calc(100vh - <NavBar height> - 1mm)', 
+          margin: 0,
+          marginTop: '-80px',
+          marginBottom: '20px'
+        }}
+      />
     </div>
   );
 };
