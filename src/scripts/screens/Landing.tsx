@@ -92,7 +92,7 @@ const Landing: React.FC = () => {
           <iframe
             width="100%"
             height="100%"
-            src="https://www.youtube.com/embed/MmB9b5njVbA?controls=1&autoplay=1&mute=1&loop=1&playlist=MmB9b5njVbA"
+            src="https://www.youtube.com/embed/uX1R5oBkO5o?controls=1&autoplay=1&mute=1&loop=1&playlist=uX1R5oBkO5o"
             title="YouTube video"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -104,6 +104,7 @@ const Landing: React.FC = () => {
               border: 'none',
             }}
           />
+
         </section>
       </main>
 
